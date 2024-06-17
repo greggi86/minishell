@@ -6,7 +6,7 @@
 /*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:15:11 by pmelis            #+#    #+#             */
-/*   Updated: 2024/06/17 14:27:56 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:22:27 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	bob_the_builder(char *input)
 		return (1);
 	printf("After split:\n");
 	print_str_array(token_array);
+	printf("-----------------\n");
 	//lexer / tokenization
 	token_list = lexer(token_array);
 	if (!token_list)
@@ -51,6 +52,7 @@ int	bob_the_builder(char *input)
 	}
 	printf("After lexing:\n");
 	print_tokens(token_list);
+	printf("-----------------\n");
 	//syntax error check
 	if (syntax_error(token_list))
 	{
@@ -64,6 +66,7 @@ int	bob_the_builder(char *input)
 		return (1);
 	printf("After env expand:\n");
 	print_tokens(token_list);
+	printf("-----------------\n");
 	cmd_list = parser(token_list);
 	if (!cmd_list)
 	{
@@ -72,11 +75,13 @@ int	bob_the_builder(char *input)
 	}
 	printf("After parsing:\n");
 	print_cmds(cmd_list);
+	printf("-----------------\n");
 	free_tokens(token_list);
 	//execute cmd_list
+	g_signal_status = exec_cmds(cmd_list);
 	free_cmd(cmd_list);
 	//free / clean up
-	return (0);
+	return (g_signal_status);
 }
 
 int	minishell_loop(void)
