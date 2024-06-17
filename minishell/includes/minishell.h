@@ -6,7 +6,7 @@
 /*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:12:15 by pmelis            #+#    #+#             */
-/*   Updated: 2024/06/17 14:16:04 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/06/17 15:45:21 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # define PROMPT "\033[32mminishell> \033[0m"
+# define PATH_MAX 1024;
 
 //////////////////////////
 // Include dependencies //
@@ -39,6 +40,7 @@
 								//tcgetattr
 # include <unistd.h>            // write, getcwd, chdir, unlink, execve, dup,
 								//dup2, pipe
+# include <limits.h>            // PATH_MAX
 
 //////////////////////////
 //   Global Variables   //
@@ -91,9 +93,49 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_data
+{
+	char	*cmd;
+	int		exit;
+	int		*state;
+	char	*flag;
+	char	**env;
+	int		envc;
+}		t_data;
+
+////////////////////////////////////////////////////
+typedef int	(*t_builtin_func)(char *cmd, t_data *data);
+
+typedef struct s_builtin
+{
+	char			*cmd;
+	t_builtin_func	func;
+} t_builtin
+
+static const s_builtin g_builtin[] = {
+
+	{"echo", m_echo},
+	{"cd", m_cd},
+	{"pwd", m_pwd},
+	{"export", m_export},
+	{"unset", m_unset},
+	{"env", m_env},
+	{"exit", m_exit},
+	{0}
+}	t_builtin;
+
 //////////////////////////////////
 //		Function prototypes		//
 //////////////////////////////////
+//////////////////////////
+//		builtins		//
+//////////////////////////
+int		m_echo(char *cmd, t_data *data);
+int		m_cd(char *cmd, t_data *data);
+int		m_env(char *cmd, t_data *data);
+int		m_pwd(char *cmd, t_data *data);
+int		m_exit(char *cmd, t_data *data);
+int		m_export(char *cmd, t_data *data);
 
 //////////////////////////
 //		cleaners		//

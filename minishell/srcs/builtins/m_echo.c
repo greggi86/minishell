@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:49:46 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/11 18:17:51 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:43:54 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
+#include "../../includes/minishell.h"
 
 void	echo(char *str, t_data *data)
 {

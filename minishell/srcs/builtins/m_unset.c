@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:26:04 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/16 14:55:15 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:44:08 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	m_unset(char *str, char ***envp)
 {

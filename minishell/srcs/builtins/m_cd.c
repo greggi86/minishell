@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:32:33 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/11 16:52:46 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:43:50 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 //implement tilde and home
 

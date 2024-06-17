@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:15:25 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/16 15:35:17 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:44:00 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
+#include "../../includes/minishell.h"
 
 int	exit_cleanup(t_data *data)
 {

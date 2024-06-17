@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_env.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 16:07:20 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/15 22:32:47 by grbuchne         ###   ########.fr       */
+/*   Created: 2024/06/08 14:55:20 by grbuchne          #+#    #+#             */
+/*   Updated: 2024/06/17 15:44:14 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-int	m_env(char *cmd, t_data *data)
+int	m_pwd(char *cmd, t_data *data)
 {
-	(void) cmd;
-	char	**env;
+	char	*path[CHAR_MAX];
 
-	env = data->envp;
+	(void)	*data;
+	(void)	*cmd;
 
-	while (*env != NULL)
+	if (getcwd(path, sizeof(path)) != 0)
 	{
-		printf("%s\n", *env);
-		env++;
+		ft_printf("%s", path);
+	}
+	else
+	{
+		perror( )      //error message neu;
 	}
 }

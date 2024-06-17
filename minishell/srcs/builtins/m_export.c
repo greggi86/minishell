@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 15:18:55 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/16 17:17:43 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:44:04 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	m_export(char *cmd, t_data *data)
 {
