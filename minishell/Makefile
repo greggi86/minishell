@@ -11,6 +11,9 @@ FLAGS	:= -Wall -Wextra -Werror
 
 SRCS		:=	main.c \
 				srcs/cleaners/cleaners.c \
+				srcs/execution/exec.c \
+				srcs/execution/find_exec.c \
+				srcs/execution/handle_args.c \
 				srcs/lexer/syntax_errors/syntax_error.c \
 				srcs/lexer/syntax_errors/unclosed_quotes.c \
 				srcs/lexer/lexer.c \
@@ -18,7 +21,7 @@ SRCS		:=	main.c \
 				srcs/lexer/token_types.c \
 				srcs/parser/cmds.c \
 				srcs/parser/env_expand.c \
-				srcs/redirects/redirects.c \
+				srcs/redirects/redirections.c \
 				srcs/utils/ft_split.c \
 				srcs/utils/print.c \
 				srcs/utils/str_utils.c \

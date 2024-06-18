@@ -6,7 +6,7 @@
 /*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:15:11 by pmelis            #+#    #+#             */
-/*   Updated: 2024/06/17 19:22:27 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/06/18 12:41:18 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,31 +117,3 @@ int	main(void)
 	signal(SIGQUIT, signal_handler);
 	return (minishell_loop());
 }
-
-/*
-Sample execute:
-int execute_command(char *input)
-{
-	pid_t pid = fork();
-	if (pid == 0)
-	{
-		// Child process
-		char *argv[] = {"/bin/sh", "-c", input, NULL};
-		execve("/bin/sh", argv, NULL);
-		exit(127); // If execve fails
-	}
-	else if (pid < 0)
-	{
-		// Fork failed
-		perror("fork");
-		return 1;
-	}
-	else
-	{
-		// Parent process
-		int status;
-		waitpid(pid, &status, 0);
-		return WEXITSTATUS(status);
-	}
-}
-*/

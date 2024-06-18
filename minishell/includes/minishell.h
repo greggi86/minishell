@@ -6,7 +6,7 @@
 /*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:12:15 by pmelis            #+#    #+#             */
-/*   Updated: 2024/06/17 19:16:20 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/06/18 13:18:54 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,23 @@ void	ft_itoa(int n, char *str);
 //////////////////////////////////////////
 int		exec_cmds(t_cmd *cmd_list);
 char	**ft_split(const char *s, char c);
+
+//////////////////////////
+//		redirects		//
+//////////////////////////
+// redirections.c
+int		redirect_inputs(t_cmd *cmd);
+int		redirect_outputs(t_cmd *cmd);
+
+//////////////////////////
+//		execution		//
+//////////////////////////
+// exec.c
+
+// find_exec.c
+char	*find_command(char *cmd);
+
+// handle_args.c
+char	**merge_args(t_cmd *cmd);
 
 #endif
