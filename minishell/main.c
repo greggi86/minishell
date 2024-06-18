@@ -6,7 +6,7 @@
 /*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:15:11 by pmelis            #+#    #+#             */
-/*   Updated: 2024/06/18 12:41:18 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/06/18 13:54:03 by pmelis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ int	bob_the_builder(char *input)
 	printf("-----------------\n");
 	free_tokens(token_list);
 	//execute cmd_list
+	printf("output: \n");
 	g_signal_status = exec_cmds(cmd_list);
+	printf("exit status: %d\n", g_signal_status);
 	free_cmd(cmd_list);
 	//free / clean up
 	return (g_signal_status);
