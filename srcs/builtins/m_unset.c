@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 17:26:04 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/17 15:44:08 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/07/06 16:55:50 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,19 @@ int	m_unset(char *str, char ***envp)
 		i++;
 	}
 	return (1);
+}
+
+
+t_token	*remove_token(t_token *node)
+{
+	t_token	*tmp;
+
+	tmp = node->next;
+	if (node->prev)
+		node->prev->next = node->next;
+	if (node->next)
+		node->next->prev = node->prev;
+	free(node->word);
+	free(node);
+	return (tmp);
 }

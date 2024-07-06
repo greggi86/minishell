@@ -6,7 +6,7 @@
 /*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:32:33 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/07/04 15:26:06 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:57:07 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,4 @@ void	change_directory(t_data *data, char *cmd)
 	free(old_pwd);
 }
 
+//add to env

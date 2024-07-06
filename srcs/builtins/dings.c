@@ -64,8 +64,16 @@ int main(int argc, char *argv[], char *envp[]) {
     // Ausgabe der Umgebungsvariablen aus der Liste
     EnvVar *current = env_list;
     while (current != NULL) {
-        printf("Key: %s, Value: %s\n", current->key, current->value);
+        if (current->value == NULL || current->value[0] == '\0')
+        {
+            printf("%s", current->key);
+            current = current->next;
+        }
+        else
+        {
+        printf("%s=%s\n", current->key, current->value);
         current = current->next;
+        }
     }
 
     // Freigeben des Speichers
