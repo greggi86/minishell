@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:32:33 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/17 15:43:50 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/07/04 15:26:06 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 
 void	change_directory(t_data *data, char *cmd)
 {
-	char	*current_directory;
-	char	*new_directory;
+	char	*old_pwd;
+	char	*new_pwd;
 
-	current_directory = getcwd(NULL, 0);
+	old_pwd = getcwd(NULL, 0);
 	if (chdir(cmd) == 0)
 	{
-		new_directory = getcwd(NULL, 0);
-		free(new_directory);
+		new_pwd = getcwd(NULL, 0);
+		free(new_pwd);
 	}
 	else
 	{
 		perror("error on reading path");
 	}
-	free(current_directory);
+	free(old_pwd);
 }
 

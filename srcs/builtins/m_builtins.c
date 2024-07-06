@@ -1,36 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_env.c                                            :+:      :+:    :+:   */
+/*   m_builtins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 16:07:20 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/07/06 16:25:15 by grbuchne         ###   ########.fr       */
+/*   Created: 2024/06/17 16:37:41 by grbuchne          #+#    #+#             */
+/*   Updated: 2024/07/04 15:24:17 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	m_env(char *cmd, t_data *data)
+
+int	check_builtins(t_cmd cmd)
 {
-	t_env	*env;
+	int			i;
+	static void	*builtin[7][2] = {
 
-	(void) cmd;
-	env = data->env;
+	{"echo", m_echo},
+	{"cd", m_cd},
+	{"pwd", m_pwd},
+	{"export", m_export},
+	{"unset", m_unset},
+	{"env", m_env},
+	{"exit", m_exit},
+	{0}
+	};
 
-	while (env != NULL)
+
+	i = 0;
+
+	while (i < 7)
 	{
-		if (env->value != NULL || env->value[0] != '\0')
+		if (ft_strcmp(cmd.cmd, builtin[i][0]) == 0)
 		{
-			printf("%s=%s", env->key, env->value);
-			env = env->next;
+			return (builtin[i][1]);
 		}
-		else
-		{
-			printf("%s", env->key);
-			env = env->next;
-		}
+		i++;
 	}
-	return (0);
+	return (1);
 }
