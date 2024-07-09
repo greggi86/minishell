@@ -6,68 +6,11 @@
 /*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:45:33 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/07/05 16:41:52 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:06:44 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../includes/minishell.h"
-
-// int	get_envp(t_data *data, char **envp)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	data->envc = 0;
-// 	i = 0;
-// 	j = 0;
-// 	while (envp[data->envc] != NULL)
-// 		data->envc++;
-// 	if (data->envp != NULL)
-// 	{
-// 		while (data->envp != NULL)
-// 		{
-// 			free(data->envp[i]);
-// 			i++;
-// 		}
-// 		free(data->envp);
-// 		i = 0;
-// 	}
-// 	data->envp = malloc((data->envc + 1) * sizeof(char *));
-// 	if (data->envp == NULL)
-// 		perror("get_envp");
-// 	while (i < data->envc)
-// 	{
-// 		data->envp[i] = ft_strdup(envp[i]);
-// 		if (data->envp[i] == NULL)
-// 		{
-// 			while (j < i)
-// 			{
-// 				free(data->envp[j]);
-// 				j++;
-// 			}
-// 			free(data->envp);
-
-// 		}
-// 		i++;
-// 	}
-// 	envp[i] = NULL;
-// 	return (data->envc);
-// }
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-} t_env;
+#include "../../includes/minishell.h"
 
 void	add_env_node_back(t_env **envp, char *key, char *value)
 {
@@ -94,14 +37,6 @@ void	add_env_node_back(t_env **envp, char *key, char *value)
 	}
 }
 
-void	print_env_list(t_env *env)
-{
-	while (env)
-	{
-		printf("Key: %s, Value: %s\n", env->key, env->value);
-		env = env->next;
-	}
-}
 
 int	parse_env(char **envp, t_env **env)
 {
@@ -131,6 +66,15 @@ int	parse_env(char **envp, t_env **env)
 	return (0);
 }
 
+
+void	print_env_list(t_env *env)
+{
+	while (env)
+	{
+		printf("Key: %s, Value: %s\n", env->key, env->value);
+		env = env->next;
+	}
+}
 //envp manipulation into key and value
 int	main(int ac, char **av, char **envp)
 {

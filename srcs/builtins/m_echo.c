@@ -3,34 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   m_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmelis <pmelis@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:49:46 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/06/17 15:43:54 by pmelis           ###   ########.fr       */
+/*   Updated: 2024/07/09 11:46:17 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	echo(char *str, t_data *data)
+int	new_line_check(char **args)
+{
+	int	i;
+	int	check;
+
+	check = 0;
+	i = 1;
+
+	while (args[0][0] == '-' && args[0][i] == 'n')
+	{
+		i++;
+	}
+	if()
+	return (0);
+}
+
+void	echo(t_cmd cmd)
 {
 	int	start;
 	int	newline;
 
 	start = 1;
 	newline = 1;
-	(void)data;
-	if (str[1] != NULL && ft_strcmp(str[0], "-n") == 0)
+	if (cmd.args[0] != NULL && new_line_check(cmd.args) == 0)
 	{
-		start ++;
+		start++;
 		newline = 0;
 	}
-	if (str[start] != NULL)
+	if (cmd.args[start] != NULL)
 	{
-		while (str[start] != NULL)
+		while (cmd.args[start] != NULL)
 		{
-			printf("%s", str[start]);
-			if (str[start + 1])
+			printf("%s", cmd.args[start]);
+			if (cmd.args[start + 1])
 				printf(" ");
 			start++;
 		}
