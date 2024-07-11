@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-int	exit_cleanup(t_data *data)
+int	exit_cleanup(t_cmd *data)
 {
 	//close fds()
 	//close processes
@@ -23,7 +23,7 @@ int	exit_cleanup(t_data *data)
 
 // while != exit in main loop
 
-int	m_exit(char *cmd, t_data *data)
+int	m_exit(char *cmd, t_cmd *data)
 {
 	data->exit = 1;
 	return (ft_atoi(cmd[0]));

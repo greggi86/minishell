@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -82,7 +82,6 @@ int	split_env(char *str, char **key, char **value)
 	}
 	(*key)[i] = '\0';
 	ft_strlcpy(*value, str + len + 1, ft_strlen(str + len + 1) + 1);
-	printf("value: %s\n", *value);
 	return (1);
 }
 
@@ -167,26 +166,26 @@ void	print_env_list(t_env *env)
 	}
 }
 
-int main(void)
-{
-	char	*s1;
-	char	*s2;
-	char	*s3;
-	t_cmd	cmd;
-
-	cmd.env = NULL;
-	s1 = "SONNE=Gut";
-	s2 = "POLIZEI=Nichtso gut";
-	s3 = "ESSEN=SEHR GUT";
-
-	add_to_env_export(&cmd, s1);
-	add_to_env_export(&cmd, s2);
-	add_to_env_export(&cmd, s3);
-	printf("vor unset: \n");
-	print_env_list(cmd.env);
-	printf("\n");
-	m_unset(cmd, "POLIZEI");
-	printf("nach unset \"POLIZEI\" \n");
-	print_env_list(cmd.env);
-	return (0);
-}
+// int main(void)
+// {
+// 	char	*s1;
+// 	char	*s2;
+// 	char	*s3;
+// 	t_cmd	cmd;
+// 
+// 	cmd.env = NULL;
+// 	s1 = "SONNE=Gut";
+// 	s2 = "POLIZEI=Nichtso gut";
+// 	s3 = "ESSEN=SEHR GUT";
+// 
+// 	add_to_env_export(&cmd, s1);
+// 	add_to_env_export(&cmd, s2);
+// 	add_to_env_export(&cmd, s3);
+// 	printf("vor unset: \n");
+// 	print_env_list(cmd.env);
+// 	printf("\n");
+// 	m_unset(cmd, "POLIZEI");
+// 	printf("nach unset \"POLIZEI\" \n");
+// 	print_env_list(cmd.env);
+// 	return (0);
+// }

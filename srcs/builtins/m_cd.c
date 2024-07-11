@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 //implement tilde and home
 
@@ -22,21 +22,23 @@ void	change_directory(t_cmd cmd)
 
 	old_pwd = getcwd(NULL, 0);
 	i = cmd.env;
-	while (i->key != "PWD" && i != NULL)
-	{
-		i = i->next;
-	}
-	if (i->key == "PWD")
-		ft_strncpy(i->value, old_pwd, strlen(old_pwd));
-	if (i->NULL)
-	{
-		add
-	}
+	while ( i != NULL)
+    {
+        i = i->next;
+        if (ft_strcmp(i->key, "OLDPWD") == 0)
+            ft_strncpy(i->value, old_pwd, strlen(old_pwd));
+    }
+    i = cmd.env;
 	if (chdir (cmd.cmd) == 0)
 	{
 		pwd = getcwd(NULL, 0);
-		add_to_env(cmd.env, pwd);
-		free(pwd);
+        while ( i != NULL)
+        {
+            if (ft_strcmp(i->key, "PWD") == 0)
+                ft_strncpy(i->value, pwd, strlen(pwd));
+            i = i->next;
+        }
+        free(pwd);
 	}
 	else
 	{

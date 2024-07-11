@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	new_line_check(char **args)
 {
@@ -18,13 +18,19 @@ int	new_line_check(char **args)
 	int	check;
 
 	check = 0;
-	i = 1;
-
-	while (args[0][0] == '-' && args[0][i] == 'n')
-	{
-		i++;
-	}
-	if()
+	i = 0;
+    if(args[0] == NULL || args == NULL)
+    {
+        return (1);
+    }
+    if(args[0][0] != '-')
+        return (1);
+    while (args[0][i] == 'n'
+    {
+        i++;
+    }
+	if(args[0][i] != 'n')
+            return (1);
 	return (0);
 }
 
@@ -54,3 +60,5 @@ void	echo(t_cmd cmd)
 		printf("\n");
 }
 
+int main(void){
+}

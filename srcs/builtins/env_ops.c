@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	split_env(char *str, char **key, char **value)
 {
@@ -33,7 +33,7 @@ int	split_env(char *str, char **key, char **value)
 		i++;
 	}
 	(*key)[i] == '\0';
-	ft_strcpy(*value, str + len + 1);
+	strcpy(*value, str + len + 1);
 	return (1);
 }
 

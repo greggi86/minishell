@@ -19,6 +19,7 @@
 //////////////////////////
 // Include dependencies //
 //////////////////////////
+# include <stdio.h>             // printf & readline
 # include <readline/readline.h> // readline, rl_clear_history, rl_on_new_line,
 								// rl_replace_line, rl_redisplay
 # include <curses.h>            // tgetent, tgetflag, tgetnum, tgetstr, tgoto,
@@ -29,7 +30,6 @@
 # include <readline/history.h>  // add_history
 # include <signal.h>            // signal, sigaction, sigemptyset, sigaddset,
 								//kill
-# include <stdio.h>             // printf
 # include <stdlib.h>            // malloc, free, exit, getenv
 # include <string.h>            // strerror
 # include <sys/ioctl.h>         // ioctl
@@ -87,10 +87,9 @@ typedef struct s_cmd
 	char			*cmd;
 	char			**args;
 	char			**flags;
-	t_redir			*infiles;
-	t_redir			*outfiles;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
+    t_env           *env;
 }	t_cmd;
 
 // typedef struct s_data

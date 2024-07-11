@@ -6,11 +6,11 @@
 /*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:45:33 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/07/08 15:06:44 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:06:28 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	add_env_node_back(t_env **envp, char *key, char *value)
 {
@@ -71,7 +71,7 @@ void	print_env_list(t_env *env)
 {
 	while (env)
 	{
-		printf("Key: %s, Value: %s\n", env->key, env->value);
+		printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 }
