@@ -6,7 +6,7 @@
 /*   By: grbuchne <grbuchne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 15:18:55 by grbuchne          #+#    #+#             */
-/*   Updated: 2024/07/10 19:15:43 by grbuchne         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:56:46 by grbuchne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,15 @@ void print_env_list(t_env *env)
 	while (env)
 	{
 		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
+}
+
+void print_env_list_export(t_env *env)
+{
+	while (env)
+	{
+		printf("declare -x %s=\"%s\"\n", env->key, env->value);
 		env = env->next;
 	}
 }
@@ -200,6 +209,6 @@ int main(int ac, char **av, char **envp)
 	free(node);
 	//print_env_list(env_list);
     sort(&env_list);
-    print_env_list(env_list);
+    print_env_list_export(env_list);
 	return (result);
 }

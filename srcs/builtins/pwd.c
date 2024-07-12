@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-int	m_pwd(char *cmd, t_data *data)
+int	m_pwd(char *cmd, t_cmd *data)
 {
 	char	*path[CHAR_MAX];
 
@@ -21,10 +21,11 @@ int	m_pwd(char *cmd, t_data *data)
 
 	if (getcwd(path, sizeof(path)) != 0)
 	{
-		ft_printf("%s", path);
+		printf("%s", path);
 	}
 	else
 	{
-		perror( )      //error message neu;
+		perror("funky");      //error message neu;
 	}
+	return (0);
 }
