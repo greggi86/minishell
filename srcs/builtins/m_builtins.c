@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-
+#include "../../includes/minishell.h"
+/*
 int	check_builtins(t_cmd cmd)
 {
-	int			i;
-	static void	*builtin[7][2] = {
+	int		i;
+	void	*builtin[8][2];
 
+	builtin = {
 	{"echo", m_echo},
 	{"cd", m_cd},
 	{"pwd", m_pwd},
@@ -25,12 +25,9 @@ int	check_builtins(t_cmd cmd)
 	{"unset", m_unset},
 	{"env", m_env},
 	{"exit", m_exit},
-	{0}
+	{0, 0}
 	};
-
-
 	i = 0;
-
 	while (i < 7)
 	{
 		if (ft_strcmp(cmd.cmd, builtin[i][0]) == 0)
@@ -41,3 +38,5 @@ int	check_builtins(t_cmd cmd)
 	}
 	return (1);
 }
+*/
+

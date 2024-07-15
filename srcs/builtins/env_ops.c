@@ -10,8 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
+/*
+split_env():	split env variables
+
+Arguments:		char *str
+				char **key
+				char **value
+
+Return:			int 1 or 0
+
+How it works:
+				1. 
+*/
+/*
 int	split_env(char *str, char **key, char **value)
 {
 	int	i;
@@ -32,11 +45,12 @@ int	split_env(char *str, char **key, char **value)
 		(*key)[i] = str[i];
 		i++;
 	}
-	(*key)[i] == '\0';
+	(*key)[i] = '\0';
 	strcpy(*value, str + len + 1);
 	return (1);
 }
-
+*/
+/*
 int	add_to_env_export(t_cmd cmd, char *str)
 {
 	t_env	*env;
@@ -61,3 +75,4 @@ int	add_to_env_export(t_cmd cmd, char *str)
 	}
 	return (1);
 }
+*/

@@ -10,13 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-int	m_pwd(char *cmd, t_cmd *data)
+/*
+m_pwd():	prints working directory
+
+Arguments:	char *cmd
+			t_cmd *data
+
+Return:		int errorcode
+
+How it works:
+			1. Initialize max path
+			2. void arguments
+			3. if getcwd ok
+				4. print working directory
+			5. else perror funky
+			6. return 0
+*/
+int	m_pwd(t_cmd *cmd)
 {
-	char	*path[CHAR_MAX];
+	char	path[CHAR_MAX];
 
-	(void)	*data;
 	(void)	*cmd;
 
 	if (getcwd(path, sizeof(path)) != 0)
@@ -25,7 +40,7 @@ int	m_pwd(char *cmd, t_cmd *data)
 	}
 	else
 	{
-		perror("funky");      //error message neu;
+		perror("funky");
 	}
 	return (0);
 }

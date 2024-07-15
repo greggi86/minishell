@@ -97,3 +97,33 @@ void	print_cmds(t_cmd *head)
 		tmp = tmp->next;
 	}
 }
+
+/*
+void	print_env_list(t_env *env)
+{
+	while (env)
+	{
+		printf("Key: %s, Value: %s\n", env->key, env->value);
+		env = env->next;
+	}
+}
+*/
+
+void print_env_list(t_env *env)
+{
+	while (env)
+	{
+		printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
+}
+
+void print_env_list_export(t_env *env)
+{
+	while (env)
+	{
+		printf("declare -x %s=\"%s\"\n", env->key, env->value);
+		env = env->next;
+	}
+}
+

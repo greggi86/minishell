@@ -10,55 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	unsigned char	*u_s1;
-	unsigned char	*u_s2;
-	size_t			i;
-
-	u_s1 = (unsigned char *) s1;
-	u_s2 = (unsigned char *) s2;
-	i = 0;
-	if (n <= 0)
-		return (0);
-	while (u_s1[i] != '\0' && u_s2[i] != '\0' && (i + 1 < n)
-		&& u_s1[i] == u_s2[i])
-	{
-		i++;
-	}
-	return (u_s1[i] - u_s2[i]);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	srclen;
-
-	srclen = ft_strlen(src);
-	i = 0;
-	if (dstsize > 0)
-	{
-		while ((dstsize - 1) > i && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (srclen);
-}
+#include "../../includes/minishell.h"
 
 int	split_env(char *str, char **key, char **value)
 {
@@ -134,14 +86,15 @@ int	add_to_env_export(t_cmd *cmd, char *str)
 	return (0);
 }
 
-int m_unset(t_cmd cmd, char *str) {
-    t_env *i = cmd.env;
+int m_unset(t_cmd *cmd, char *str)
+{
+    t_env *i = cmd->env;
     t_env *prev = NULL;
 
     while (i != NULL) {
         if (ft_strncmp(i->key, str, ft_strlen(str) + 1) == 0) {
             if (prev == NULL) {  // Wenn es der erste Knoten ist
-                cmd.env = i->next;
+                cmd->env = i->next;
             } else {
                 prev->next = i->next;
             }
@@ -154,16 +107,6 @@ int m_unset(t_cmd cmd, char *str) {
         i = i->next;
     }
     return 0;
-}
-
-
-void	print_env_list(t_env *env)
-{
-	while (env)
-	{
-		printf("Key: %s, Value: %s\n", env->key, env->value);
-		env = env->next;
-	}
 }
 
 // int main(void)

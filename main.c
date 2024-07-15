@@ -14,6 +14,20 @@
 
 int	g_signal_status = 420;
 
+int	set_env_lst(t_cmd *cmd_list,t_env *env)
+{
+	t_cmd *tmp;
+
+	tmp = cmd_list;
+	while (tmp != NULL)
+	{
+		cmd_list->env = env;
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+
 void	signal_handler(int signo)
 {
 	if (signo == SIGINT)
@@ -21,7 +35,7 @@ void	signal_handler(int signo)
 		g_signal_status = signo;
 		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	if (signo == SIGQUIT)
@@ -30,7 +44,7 @@ void	signal_handler(int signo)
 	}
 }
 
-int	bob_the_builder(char *input)
+int	bob_the_builder(char *input, t_env *env)
 {
 	char	**token_array;
 	t_token	*token_list;
@@ -73,6 +87,7 @@ int	bob_the_builder(char *input)
 		free_tokens(token_list);
 		return (1);
 	}
+	set_env_lst(cmd_list, env);
 	printf("After parsing:\n");
 	print_cmds(cmd_list);
 	printf("-----------------\n");
@@ -86,7 +101,7 @@ int	bob_the_builder(char *input)
 	return (g_signal_status);
 }
 
-int	minishell_loop(void)
+int	minishell_loop(t_env *env)
 {
 	char	*input;
 	int		exit_status;
@@ -105,7 +120,7 @@ int	minishell_loop(void)
 		if (*input)
 		{
 			add_history(input);
-			exit_status = bob_the_builder(input);
+			exit_status = bob_the_builder(input, env);
 		}
 		free(input);
 	}
@@ -113,9 +128,22 @@ int	minishell_loop(void)
 }
 
 //int argc, char **argv
-int	main(void)
+int	main(int ac, char **av, char **envp)
 {
+
+	t_env	*env_list;
+	//t_env	*i;
+
+	(void)ac;
+	(void)av;
+
+	env_list = NULL;
+	parse_env(envp, &env_list);
+	//i = env_list;
+	//print_env_list(i);
+
+
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
-	return (minishell_loop());
+	return (minishell_loop(env_list));
 }

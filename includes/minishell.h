@@ -21,15 +21,15 @@
 //////////////////////////
 # include <stdio.h>             // printf & readline
 # include <readline/readline.h> // readline, rl_clear_history, rl_on_new_line,
-								// rl_replace_line, rl_redisplay
+				// rl_replace_line, rl_redisplay
 # include <curses.h>            // tgetent, tgetflag, tgetnum, tgetstr, tgoto,
-								//tputs
+				//tputs
 # include <dirent.h>            // opendir, readdir, closedir
 # include <errno.h>             // perror
 # include <fcntl.h>             // access, open, read, close
 # include <readline/history.h>  // add_history
 # include <signal.h>            // signal, sigaction, sigemptyset, sigaddset,
-								//kill
+				//kill
 # include <stdlib.h>            // malloc, free, exit, getenv
 # include <string.h>            // strerror
 # include <sys/ioctl.h>         // ioctl
@@ -37,9 +37,9 @@
 # include <sys/types.h>         // fork, wait, waitpid, wait3, wait4
 # include <sys/wait.h>          // wait, waitpid, wait3, wait4
 # include <termios.h>           // isatty, ttyname, ttyslot, tcsetattr,
-								//tcgetattr
+				//tcgetattr
 # include <unistd.h>            // write, getcwd, chdir, unlink, execve, dup,
-								//dup2, pipe
+				//dup2, pipe
 # include <limits.h>            // PATH_MAX
 
 //////////////////////////
@@ -84,140 +84,92 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char			*cmd;
-	char			**args;
-	char			**flags;
+	char		*cmd;
+	char		**args;
+	char		**flags;
+	struct s_redir	*infiles;
+	struct s_redir	*outfiles;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
-    t_env           *env;
+	struct s_env	*env;
+	int				exit;
 }	t_cmd;
-
-// typedef struct s_data
-// {
-// 	char	*cmd;
-// 	int		exit;
-// 	int		*state;
-// 	char	*flag;
-// 	char	**env;
-// 	int		envc;
-// }		t_data;
-
-// ////////////////////////////////////////////////////
-// typedef int	(*t_builtin_func)(char *cmd, t_data *data);
-
-// typedef struct s_builtin
-// {
-// 	char			*cmd;
-// 	t_builtin_func	func;
-// } t_builtin
-
-// static const s_builtin g_builtin[] = {
-
-// 	{"echo", m_echo},
-// 	{"cd", m_cd},
-// 	{"pwd", m_pwd},
-// 	{"export", m_export},
-// 	{"unset", m_unset},
-// 	{"env", m_env},
-// 	{"exit", m_exit},
-// 	{0}
-// }	t_builtin;
 
 //////////////////////////////////
 //		Function prototypes		//
 //////////////////////////////////
-//////////////////////////
-//		builtins		//
-//////////////////////////
-// int		m_echo(char *cmd, t_data *data);
-// int		m_cd(char *cmd, t_data *data);
-// int		m_env(char *cmd, t_data *data);
-// int		m_pwd(char *cmd, t_data *data);
-// int		m_exit(char *cmd, t_data *data);
-// int		m_export(char *cmd, t_data *data);
 
-//////////////////////////
-//		cleaners		//
-//////////////////////////
-// cleaners.c
-void	free_array(char **arr);
-void	free_tokens(t_token *head);
-void	free_array_and_tokens(char **arr, t_token *head);
-void	free_cmd(t_cmd *head);
+//	utils.c
+size_t	ft_strlen(const char *s);
 
-//////////////////////
-//		lexer		//
-//////////////////////
-// syntax_error.c
-int		check_inner_chars(char *word, char c);
-int		syntax_error(t_token *head);
+//	str_utils.c
+int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strncpy(char *dst, const char *src, size_t n);
 
-// unclosed_quotes.c
-int		unclosed_quotes(char *str);
+//	split_tokens.c
+char	**split_tokens(char *input);
 
-// lexer.c
-t_token	*lexer(char **tokens);
-
-// split_tokens.c
-char	**split_tokens(char *pipe);
-
-// token_types.c
-void	set_types(t_token *head);
-
-//////////////////////
-//		parser		//
-//////////////////////
-// cmds.c
-t_cmd	*parser(t_token *head);
-
-// env_expand.c
-char	*ft_clean_quotes(char *word);
-t_token	*env_expand(t_token *head);
-
-//////////////////////
-//		uitls		//
-//////////////////////
-// print.c
+//	print.c
 void	print_str_array(char **arr);
 void	print_tokens(t_token *head);
 void	print_cmds(t_cmd *head);
+void print_env_list(t_env *env);
 
-// str_utils.c
-char	*ft_strndup(const char *s1, size_t n);
-char	*ft_strdup(const char *s);
-char	*ft_strncpy(char *dst, const char *src, size_t n);
-char	*ft_strcat(char *dst, const char *src);
-int		ft_strcmp(const char *s1, const char *s2);
+//	lexer.c
+t_token	*lexer(char **tokens);
 
-// utils.c
-int		ft_isalnum(int c);
-size_t	ft_strlen(const char *s);
-int		ft_is_space(char c);
-void	ft_reverse_str(char *str, int len);
-void	ft_itoa(int n, char *str);
+//	cleaners.c
+void	free_array(char **arr);
+void	free_array_and_tokens(char **arr, t_token *head);
+void	free_tokens(t_token *head);
+void	free_cmd(t_cmd *head);
 
-//////////////////////////////////////////
-//			Under Construction			//
-//////////////////////////////////////////
-int		exec_cmds(t_cmd *cmd_list);
-char	**ft_split(const char *s, char c);
+//	syntax_error.c
+int	syntax_error(t_token *head);
 
-//////////////////////////
-//		redirects		//
-//////////////////////////
-// redirections.c
-int		redirect_inputs(t_cmd *cmd);
-int		redirect_outputs(t_cmd *cmd);
+//	env_expand.c
+t_token	*env_expand(t_token *head);
 
-//////////////////////////
-//		execution		//
-//////////////////////////
-// exec.c
+//	cmds.c
+t_cmd	*parser(t_token *head);
 
-// find_exec.c
-char	*find_command(char *cmd);
+//	exec.c
+int	exec_cmds(t_cmd *cmd_list);
 
-// handle_args.c
+//	builtins/
+void	m_echo(t_cmd *cmd);
+void	m_cd(t_cmd *cmd);
+int		m_pwd(t_cmd *cmd);
+int		m_env(t_cmd *cmd);
+int		m_unset(t_cmd *cmd, char *str);
+int		m_exit(t_cmd *cmd);
+
+
+//	str_utils2.c
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+
+//	get_envp.c
+int	parse_env(char **envp, t_env **env);
 char	**merge_args(t_cmd *cmd);
+char	*find_command(char *cmd);
+void	redirect_inputs(t_cmd *cmd);
+void	redirect_outputs(t_cmd *cmd);
+char	*ft_strdup(const char *s);
+char	**ft_split(char const *s, char c);
+
+int	unclosed_quotes(char *str);
+int	check_inner_chars(char *word, char c);
+void	set_types(t_token *head);
+int	ft_is_space(char c);
+char	*ft_strndup(const char *s1, size_t n);
+int	ft_isalnum(int c);
+char	*ft_strcat(char *dst, const char *src);
+void	ft_itoa(int n, char *str);
+int	process_heredoc(const char *delimiter);
+void add_env_node_back(t_env **envp, char *key, char *value);
+int	split_env(char *str, char **key, char **value);
+void	close_pipes(int pipes[2]);
+
 
 #endif

@@ -12,10 +12,9 @@
 
 #include "../../includes/minishell.h"
 
+//#define MAX_LINE_LEN 1024;
 
-#define MAX_LINE_LEN 1024;
-
-char	ft_strstr(char *stack, char *needle)
+char	*ft_strstr(char *stack, char *needle)
 {
 	int	i;
 	int	j;
@@ -38,7 +37,7 @@ char	ft_strstr(char *stack, char *needle)
 	return (0);
 }
 
-
+/*
 int	check_heredoc(t_token *token_list, t_cmd *cmd)
 {
 	t_token	*heredocpos;
@@ -46,7 +45,7 @@ int	check_heredoc(t_token *token_list, t_cmd *cmd)
 	heredocpos = token_list;
 	while (heredocpos->word != NULL && heredocpos != NULL)
 	{
-		if (ft_strcmd(heredocpos->type, "HEREDOC") == 0)
+		if (ft_strcmp(heredocpos->type, "HEREDOC") == 0)
 		{
 			heredocpos->next;
 			//if(heredocpos != NULL)
@@ -56,6 +55,7 @@ int	check_heredoc(t_token *token_list, t_cmd *cmd)
 	}
 	return (0);
 }
+*/
 
 
 size_t	readlines(int fd, char *buffer, size_t *maxlen)
@@ -67,16 +67,18 @@ size_t	readlines(int fd, char *buffer, size_t *maxlen)
 	n = 0;
 	if (!buffer || maxlen == 0)
 		return (-1);
-	if (*buffer == NULL)
+	if (buffer == NULL)
 	{
-		n = MAX_LINE_LEN;
+		n = PATH_MAX;
 		buffer = malloc(n);
 		if (buffer == NULL)
 			return (-1);
 	}
-	while (bytes_read == read(fd, &c, 1) > 0)
+	bytes_read = 1;
+	while (bytes_read > 0)
 	{
-		if (n < maxlen - 1)
+		bytes_read = read(fd, &c, 1);
+		if (n < (*maxlen - 1))
 		{
 			buffer[n++] = c;
 			if (c == '\n')
@@ -85,23 +87,23 @@ size_t	readlines(int fd, char *buffer, size_t *maxlen)
 		else
 			break ;
 	}
-
-	if (bytes_read < 0)
-		return (-1);
-	else if (bytes_read == 0 && n == 0)
+	//if (bytes_read < 0)
+	//	return (-1);
+	if (bytes_read == 0 && n == 0)
 		return (-1);
 	else
-		buffer[n] == '\0';
-	return (buffer);
+		buffer[n] = '\0';
+	return (*buffer);
 }
 
 int	process_heredoc(const char *delimiter)
 {
-	char	line[MAX_LINE_LEN];
+	char	line[PATH_MAX];
 	int		tmp_fd;
 	size_t	len;
+	size_t	readmax = 1024;
 
-	tmp_fd = open("temp_file.txt" | O_CREAT | O_TRUNC | O_WRONLY, 0600);
+	tmp_fd = open("temp_file.txt", O_CREAT | O_TRUNC | O_WRONLY, 0600);
 	if (tmp_fd < 0)
 	{
 		perror("open");
@@ -110,20 +112,21 @@ int	process_heredoc(const char *delimiter)
 	while (1)
 	{
 		printf("heredoc->");
-		len = readlines(STDERR_FILENO, line, MAX_LINE_LEN);
-
+		len = readlines(STDERR_FILENO, line, &readmax);
+		/*
 		if (len < 0)
 		{
 			perror("readlines");
 			close(tmp_fd);
 			return (-1);
 		}
+		*/
 		if (line[len - 1] == '\n')
-			line[len - 1] == '\0';
+			line[len - 1] = '\0';
 		if (strcmp(line, delimiter) == 0)
 			break ;
-		ft_strcat(line, '\n');
-		if (write(tmp_fd, line, ft_strlen) == -1)
+		ft_strcat(line, "\n");
+		if (write(tmp_fd, line, ft_strlen(line)) == -1)
 		{
 			perror("write");
 			close(tmp_fd);

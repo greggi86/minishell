@@ -26,39 +26,6 @@ t_cmd	*add_node(t_cmd *head, t_cmd *new_node)
 	return (head);
 }
 
-char	**get_xtype(t_token *head, t_token_type type)
-{
-	char	**type_files;
-	t_token	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = head;
-	type_files = NULL;
-	//count number of files of type
-	while (tmp && tmp->type != PIPE)
-	{
-		if (tmp->type == type)
-			i++;
-		tmp = tmp->next;
-	}
-	// allocate memory for files of type
-	type_files = (char **)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	// get files of type
-	while (head && head->type != PIPE)
-	{
-		if (head->type == type)
-		{
-			type_files[i] = ft_strdup(head->word);
-			i++;
-		}
-		head = head->next;
-	}
-	type_files[i] = NULL;
-	return (type_files);
-}
-
 t_redir	*add_redir(t_redir *head, t_redir *new_node)
 {
 	t_redir	*last;
@@ -227,10 +194,6 @@ t_cmd	*create_node(t_token *head)
 	new_node->flags = get_flags(head);
 	new_node->infiles = get_infiles(head);
 	new_node->outfiles = get_outfiles(head);
-	// new_node->infiles = get_xtype(head, INPUT);
-	// new_node->outfiles = get_xtype(head, OUTPUT);
-	// new_node->heredocs = get_xtype(head, HEREDOC);
-	// new_node->appendfiles = get_xtype(head, APPEND);
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);

@@ -12,7 +12,7 @@
 
 //still to-do
 //ascii order!!!
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void add_env_node_back(t_env **envp, char *key, char *value)
 {
@@ -52,7 +52,6 @@ void add_env_node_back(t_env **envp, char *key, char *value)
 	}
 }
 
-
 int parse_env(char **envp, t_env **env)
 {
 	int i;
@@ -90,23 +89,6 @@ int parse_env(char **envp, t_env **env)
 	return (0);
 }
 
-void print_env_list(t_env *env)
-{
-	while (env)
-	{
-		printf("%s=%s\n", env->key, env->value);
-		env = env->next;
-	}
-}
-
-void print_env_list_export(t_env *env)
-{
-	while (env)
-	{
-		printf("declare -x %s=\"%s\"\n", env->key, env->value);
-		env = env->next;
-	}
-}
 
 int parse_arg(t_env *env, const char *str)
 {
@@ -178,7 +160,7 @@ void sort(t_env **env)
     }
 }
 
-
+/*
 int main(int ac, char **av, char **envp)
 {
 	t_env *env_list;
@@ -190,7 +172,7 @@ int main(int ac, char **av, char **envp)
 
 	str = "hello=hallo";
 
-    env_list = NULL;
+	env_list = NULL;
 	node = (t_env *) malloc(sizeof(t_env));
 	if (node == NULL)
 	{
@@ -208,7 +190,8 @@ int main(int ac, char **av, char **envp)
 	//printf("key=%s | value=%s", node->key, node->value);
 	free(node);
 	//print_env_list(env_list);
-    sort(&env_list);
-    print_env_list_export(env_list);
+	sort(&env_list);
+	print_env_list_export(env_list);
 	return (result);
 }
+*/

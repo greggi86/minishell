@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 //implement tilde and home
 
@@ -24,7 +24,7 @@ int get_home(t_env **env)
 	k = *env;
 	while (i != NULL)
 	{
-		if (ft_strcmd(i->key, "HOME") == 0)
+		if (ft_strcmp(i->key, "HOME") == 0)
 		{
 			if (chdir(i->value) == 0)
 			{
@@ -45,12 +45,15 @@ int get_home(t_env **env)
 	return (1);
 }
 
-void	change_directory(t_cmd *cmd)
+//add function of key
+void	m_cd(t_cmd *cmd)
 {
 	char	*old_pwd;
 	char	*pwd;
 	t_env	*i;
-
+	
+	//fflush(NULL);
+	printf("testing");
 	old_pwd = getcwd(NULL, 0);
 	i = cmd->env;
 	while (i != NULL)
@@ -60,9 +63,9 @@ void	change_directory(t_cmd *cmd)
 			ft_strncpy(i->value, old_pwd, strlen(old_pwd));
 	}
 	i = cmd->env;
-	if (ft_strcmp(cmd->args[0], '~') == 0)
+	if (ft_strcmp(cmd->args[0], "~") == 0)
 	{
-		if (get_home(cmd->env) == 0)
+		if (get_home(&cmd->env) == 0)
 			return ;
 	}
 	if (chdir (cmd->args[0]) == 0)

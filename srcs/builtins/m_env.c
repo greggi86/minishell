@@ -10,8 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
+/*
+m_env():	env command
+
+Arguments:	t_cmd *cmd
+
+Return:		int exit status
+
+How it works:
+				1. loop envs
+					2. if there is key or value print both
+					3. if there is only one of those print key
+				4. return 0
+*/
 int	m_env(t_cmd *cmd)
 {
 	t_env	*env;

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
+#include "../../includes/minishell.h"
+/*
 void	add_env_node_back(t_env **envp, char *key, char *value)
 {
 	t_env	*node;
@@ -36,8 +36,8 @@ void	add_env_node_back(t_env **envp, char *key, char *value)
 		i->next = node;
 	}
 }
-
-
+*/
+/*
 int	parse_env(char **envp, t_env **env)
 {
 	int		i;
@@ -65,16 +65,8 @@ int	parse_env(char **envp, t_env **env)
 	}
 	return (0);
 }
-
-
-void	print_env_list(t_env *env)
-{
-	while (env)
-	{
-		printf("%s=%s\n", env->key, env->value);
-		env = env->next;
-	}
-}
+*/
+/*
 //envp manipulation into key and value
 int	main(int ac, char **av, char **envp)
 {
@@ -90,3 +82,4 @@ int	main(int ac, char **av, char **envp)
 	print_env_list(i);
 	return (0);
 }
+*/

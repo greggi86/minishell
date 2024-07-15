@@ -4,12 +4,22 @@
 
 NAME	:= minishell
 CC		:= gcc
-FLAGS	:= -Wall -Wextra -Werror 
+FLAGS	:= -g -Wall -Wextra -Werror 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
 SRCS		:=	main.c \
+				srcs/builtins/env_ops.c \
+				srcs/builtins/get_envp.c \
+				srcs/builtins/m_builtins.c \
+				srcs/builtins/m_cd.c \
+				srcs/builtins/m_echo.c \
+				srcs/builtins/m_env.c \
+				srcs/builtins/m_exit.c \
+				srcs/builtins/m_export.c \
+				srcs/builtins/m_unset.c \
+				srcs/builtins/pwd.c \
 				srcs/cleaners/cleaners.c \
 				srcs/execution/exec.c \
 				srcs/execution/find_exec.c \
@@ -21,10 +31,12 @@ SRCS		:=	main.c \
 				srcs/lexer/token_types.c \
 				srcs/parser/cmds.c \
 				srcs/parser/env_expand.c \
-				srcs/redirects/redirections.c \
+				srcs/redirects/heredoc.c \
+				srcs/redirects/redirects.c \
 				srcs/utils/ft_split.c \
 				srcs/utils/print.c \
 				srcs/utils/str_utils.c \
+				srcs/utils/str_utils2.c \
 				srcs/utils/utils.c
 
 OBJS		:= $(SRCS:.c=.o)
