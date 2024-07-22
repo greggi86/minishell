@@ -12,77 +12,138 @@
 
 #include "../../includes/minishell.h"
 
-//implement tilde and home
+#include "minishell.h"
 
 int get_home(t_env **env)
 {
-	t_env	*i;
-	t_env	*k;
-	char	*path;
+    t_env *i = *env;
+    char *path;
 
-	i = *env;
-	k = *env;
-	while (i != NULL)
-	{
-		if (ft_strcmp(i->key, "HOME") == 0)
-		{
-			if (chdir(i->value) == 0)
-			{
-				path = getcwd(NULL, 0);
-				while (k != NULL)
-				{
-					if (ft_strcmp(k->key, "PWD") == 0)
-					{
-						ft_strncpy(k->value, path, ft_strlen(path));
-						return (0);
-					}
-					k = k->next;
-				}
-			}
-		}
-		i = i->next;
-	}
-	return (1);
+    while (i != NULL)
+    {
+        if (strcmp(i->key, "HOME") == 0)
+        {
+            if (chdir(i->value) == 0)
+            {
+                path = getcwd(NULL, 0);
+                if (path)
+                {
+                    t_env *k = *env;
+                    while (k != NULL)
+                    {
+                        if (strcmp(k->key, "PWD") == 0)
+                        {
+                            free(k->value);
+                            k->value = strdup(path);
+                            free(path);
+                            return (0);
+                        }
+                        k = k->next;
+                    }
+                    free(path);
+                }
+            }
+            return (1);  
+        }
+        i = i->next;
+    }
+    return (1);  
 }
 
-//add function of key
-void	m_cd(t_cmd *cmd)
+int get_parent_directory_index(const char *str)
 {
-	char	*old_pwd;
-	char	*pwd;
-	t_env	*i;
-	
-	//fflush(NULL);
-	printf("testing");
-	old_pwd = getcwd(NULL, 0);
-	i = cmd->env;
-	while (i != NULL)
-	{
-		i = i->next;
-		if (ft_strcmp(i->key, "OLDPWD") == 0)
-			ft_strncpy(i->value, old_pwd, strlen(old_pwd));
-	}
-	i = cmd->env;
-	if (ft_strcmp(cmd->args[0], "~") == 0)
-	{
-		if (get_home(&cmd->env) == 0)
-			return ;
-	}
-	if (chdir (cmd->args[0]) == 0)
-	{
-		pwd = getcwd(NULL, 0);
-		while (i != NULL)
-		{
-			if (ft_strcmp(i->key, "PWD") == 0)
-				ft_strncpy(i->value, pwd, strlen(pwd));
-			i = i->next;
-		}
-		free(pwd);
-	}
-	else
-	{
-		perror("error on reading path");
-	}
-	free(old_pwd);
+    int i = strlen(str) - 1;
+    while (i > 0 && str[i] != '/')
+        i--;
+    return i;
 }
 
+int get_up(t_cmd *cmd)
+{
+    t_env *env = cmd->env;
+    while (env != NULL)
+    {
+        if (strcmp(env->key, "PWD") == 0)
+        {
+            int index = get_parent_directory_index(env->value);
+            if (index > 0)
+            {
+                char *new_pwd = strndup(env->value, index);
+                if (new_pwd)
+                {
+                    free(env->value);
+                    env->value = new_pwd;
+                    return (0);
+                }
+            }
+            return (1);  
+        }
+        env = env->next;
+    }
+    return (1);  
+}
+
+void change_directory(t_cmd *cmd)
+{
+    char *old_pwd = getcwd(NULL, 0);
+    if (!old_pwd)
+    {
+        perror("getcwd");
+        return;
+    }
+
+    if (!cmd->args || !cmd->args[0])
+    {
+        if (get_home(&cmd->env) != 0)
+            fprintf(stderr, "Failed to change to HOME directory\n");
+    }
+    else if (strcmp(cmd->args[0], "~") == 0)
+    {
+        if (get_home(&cmd->env) != 0)
+            fprintf(stderr, "Failed to change to HOME directory\n");
+    }
+    else if (strcmp(cmd->args[0], "..") == 0)
+    {
+        if (get_up(cmd) != 0)
+            fprintf(stderr, "Failed to change to parent directory\n");
+    }
+    else if (chdir(cmd->args[0]) != 0)
+    {
+        perror("chdir");
+    }
+    else
+    {
+        char *new_pwd = getcwd(NULL, 0);
+        if (new_pwd)
+        {
+            t_env *env = cmd->env;
+            while (env)
+            {
+                if (strcmp(env->key, "PWD") == 0)
+                {
+                    free(env->value);
+                    env->value = new_pwd;
+                    break;
+                }
+                env = env->next;
+            }
+        }
+        else
+        {
+            perror("getcwd");
+        }
+    }
+
+    t_env *env = cmd->env;
+    while (env)
+    {
+        if (strcmp(env->key, "OLDPWD") == 0)
+        {
+            free(env->value);
+            env->value = old_pwd;
+            return;
+        }
+        env = env->next;
+    }
+    free(old_pwd);  
+}

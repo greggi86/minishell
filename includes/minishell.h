@@ -82,11 +82,19 @@ typedef struct s_redir
 	struct s_redir	*next;
 }	t_redir;
 
+typedef struct s_doc{
+    char *filename;
+    char *delimiter;
+} t_doc;
+
+
 typedef struct s_cmd
 {
 	char		*cmd;
 	char		**args;
 	char		**flags;
+    t_doc       *heredocs;
+    int         heredoc_count;
 	struct s_redir	*infiles;
 	struct s_redir	*outfiles;
 	struct s_cmd	*prev;
@@ -150,7 +158,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 //	get_envp.c
-int	parse_env(char **envp, t_env **env);
+int     parse_env(char **envp, t_env **env);
 char	**merge_args(t_cmd *cmd);
 char	*find_command(char *cmd);
 void	redirect_inputs(t_cmd *cmd);
@@ -158,18 +166,23 @@ void	redirect_outputs(t_cmd *cmd);
 char	*ft_strdup(const char *s);
 char	**ft_split(char const *s, char c);
 
-int	unclosed_quotes(char *str);
-int	check_inner_chars(char *word, char c);
+int     unclosed_quotes(char *str);
+int     check_inner_chars(char *word, char c);
 void	set_types(t_token *head);
-int	ft_is_space(char c);
+int     ft_is_space(char c);
 char	*ft_strndup(const char *s1, size_t n);
-int	ft_isalnum(int c);
+int     ft_isalnum(int c);
 char	*ft_strcat(char *dst, const char *src);
 void	ft_itoa(int n, char *str);
-int	process_heredoc(const char *delimiter);
-void add_env_node_back(t_env **envp, char *key, char *value);
-int	split_env(char *str, char **key, char **value);
+int     process_heredoc(const char *delimiter);
+void    add_env_node_back(t_env **envp, char *key, char *value);
+int     split_env(char *str, char **key, char **value);
 void	close_pipes(int pipes[2]);
 
-
+//heredocs
+ssize_t ft_readlines(int fd, char *buffer, ssize_t maxlen);
+void    cleanup_heredocs(t_cmd *cmd);
+t_token *create_token(const char *word, t_token_type type);
+int     process_single_heredoc(const char *delimiter, const char *filename);
+int     process_all_heredocs(t_doc *heredocs, int heredoc_count);
 #endif
